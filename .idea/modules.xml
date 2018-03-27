@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DataModule.iml" filepath="$PROJECT_DIR$/DataModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dataprovider/dataprovider.iml" filepath="$PROJECT_DIR$/dataprovider/dataprovider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/presistence/presistence.iml" filepath="$PROJECT_DIR$/presistence/presistence.iml" />
+    </modules>
+  </component>
+</project>
