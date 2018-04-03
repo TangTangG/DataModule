@@ -22,25 +22,16 @@ public class BaseDataProvider {
 
     public static class Info {
         public String target;
-        public Action action;
         public Action[] actions;
 
-        public Info(String target, Action action, Action[] actions) {
+        public Info(String target,  Action[] actions) {
             this.target = target;
-            this.action = action;
             this.actions = actions;
         }
     }
 
-    protected void buildInfo(String target, Action... action) {
-        int length = action.length;
-        if (length < 0) {
-            // do nothing
-        } else if (length == 1) {
-            info = new Info(target, action[0], null);
-        } else if (length > 1) {
-            info = new Info(target, null, action);
-        }
+    private void buildInfo(String target, Action... action) {
+        info = new Info(target, action);
     }
 
     public Info getInfo() {

@@ -2,6 +2,7 @@ package com.todo.dataprovider.operate;
 
 
 import com.todo.dataprovider.DataCallback;
+import com.todo.dataprovider.DataContext;
 
 /**
  *
@@ -17,7 +18,7 @@ public interface DataOperation {
      * @param callback the callback of this operation
      * @return boolean
      */
-    boolean op(DataCallback callback);
+    boolean op(DataContext context,DataCallback callback);
 
 
 }

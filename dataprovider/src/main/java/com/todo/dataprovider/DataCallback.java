@@ -7,18 +7,20 @@ import com.todo.dataprovider.cast.Cast;
 import java.io.InputStream;
 
 /**
- * Created by TCG on 2017/8/9.
+ * Callback always run in main thread.
+ * @author TCG
+ * @date 2017/8/9
  */
 
 public class DataCallback {
 
     public void onResult(int state, DataService.Clause clause, Object data){
 
-    };
+    }
 
     public void onError(int state, DataService.Clause clause){
 
-    };
+    }
 
     public static final int SUCCESS = 1;
     public static final int ERROR = 2;

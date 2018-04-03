@@ -1,4 +1,4 @@
-package com.todo.dataprovider.clause;
+package com.todo.dataprovider;
 
 import android.util.Log;
 
@@ -15,7 +15,6 @@ import java.util.LinkedHashMap;
 public class ClauseInfo {
     public String _target;
     public OperateType _type;
-//    public DataOperation _operation;
     public LinkedHashMap<String,Condition> conditions = new LinkedHashMap<>();
 
     public ClauseInfo(OperateType type, String _target) {
@@ -66,7 +65,7 @@ public class ClauseInfo {
         conditions.put(key,condition);
     }
 
-    public Condition getInitCondition(){
+    Condition getInitCondition(){
         Collection<Condition> values = conditions.values();
         int size = values.size();
         Condition[] conditionA = new Condition[size];

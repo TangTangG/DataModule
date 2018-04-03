@@ -3,6 +3,7 @@ package com.todo.dataprovider.operate;
 
 import com.todo.dataprovider.Action;
 import com.todo.dataprovider.DataCallback;
+import com.todo.dataprovider.DataContext;
 import com.todo.dataprovider.DataService;
 
 /**
@@ -20,7 +21,7 @@ public class CacheOperation implements DataOperation {
     }
 
     @Override
-    public boolean op(DataCallback callback) {
+    public boolean op(DataContext context,DataCallback callback) {
         Action action = clause.getAction();
         switch (action) {
             case INSERT:

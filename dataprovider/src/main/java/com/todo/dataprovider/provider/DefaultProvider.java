@@ -6,11 +6,11 @@ import android.support.annotation.Nullable;
 import com.todo.dataprovider.DataCallback;
 import com.todo.dataprovider.DataService;
 import com.todo.dataprovider.annotation.ProviderRegister;
-import com.todo.dataprovider.clause.ClauseInfo;
+import com.todo.dataprovider.ClauseInfo;
 import com.todo.dataprovider.operate.DataOperation;
 import com.todo.dataprovider.operate.CacheOperation;
 import com.todo.dataprovider.operate.DBDataOperation;
-import com.todo.dataprovider.operate.HttpOperation;
+import com.todo.dataprovider.http.HttpOperation;
 
 
 /**

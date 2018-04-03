@@ -8,8 +8,9 @@ import android.util.Log;
 
 import com.todo.dataprovider.Action;
 import com.todo.dataprovider.DataCallback;
+import com.todo.dataprovider.DataContext;
 import com.todo.dataprovider.DataService;
-import com.todo.dataprovider.clause.ClauseInfo;
+import com.todo.dataprovider.ClauseInfo;
 import com.todo.presistence.db.DBManager;
 import com.todo.presistence.db.DBOperation;
 import com.todo.presistence.db.Table;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 /**
  *
@@ -32,6 +33,10 @@ import java.util.function.BiConsumer;
  */
 
 public class DBDataOperation implements DataOperation {
+
+    /**
+     * replace this with builder
+     */
 
     public static final String CAST2DB = "@cast2DBManager";
 
@@ -60,7 +65,7 @@ public class DBDataOperation implements DataOperation {
     }
 
     @Override
-    public boolean op(DataCallback callback) {
+    public boolean op(DataContext context, DataCallback callback) {
         ClauseInfo clauseInfo = clause.getClauseInfo();
         ClauseInfo.Condition condition = clauseInfo.getCondition(CAST2DB);
         if (condition == null) {
@@ -138,21 +143,21 @@ public class DBDataOperation implements DataOperation {
         final StringBuffer where = new StringBuffer();
 
         final List<String> tempArgs = new ArrayList<>();
-        conditions.forEach(new BiConsumer<String, ClauseInfo.Condition>() {
-            @Override
-            public void accept(String s, ClauseInfo.Condition condition) {
-                if (!TextUtils.isEmpty(s) && !TextUtils.isEmpty(condition.key)) {
-                    if (condition.key.contains(UPDATE_SET)) {
-                        String realKey = condition.key.replaceAll(UPDATE_SET, "");
-                        values.put(realKey, condition.value);
-                    } else if (condition.key.contains(UPDATE_WHERE)) {
-                        String realKey = condition.key.replaceAll(UPDATE_WHERE, "");
-                        where.append(realKey).append("=?");
-                        tempArgs.add(condition.value);
-                    }
+        Set<Map.Entry<String, ClauseInfo.Condition>> entries = conditions.entrySet();
+        for (Map.Entry<String, ClauseInfo.Condition> entry : entries) {
+            String s = entry.getKey();
+            ClauseInfo.Condition condition = entry.getValue();
+            if (!TextUtils.isEmpty(s) && !TextUtils.isEmpty(condition.key)) {
+                if (condition.key.contains(UPDATE_SET)) {
+                    String realKey = condition.key.replaceAll(UPDATE_SET, "");
+                    values.put(realKey, condition.value);
+                } else if (condition.key.contains(UPDATE_WHERE)) {
+                    String realKey = condition.key.replaceAll(UPDATE_WHERE, "");
+                    where.append(realKey).append("=?");
+                    tempArgs.add(condition.value);
                 }
             }
-        });
+        }
         String[] whereArgs = new String[tempArgs.size()];
         tempArgs.toArray(whereArgs);
         operate.update(values, where.length() > 0 ? where.toString() : null,
@@ -182,34 +187,35 @@ public class DBDataOperation implements DataOperation {
         final List<String> tempArgs = new ArrayList<>();
 
         LinkedHashMap<String, ClauseInfo.Condition> conditions = clauseInfo.getConditions();
-        conditions.forEach(new BiConsumer<String, ClauseInfo.Condition>() {
-            @Override
-            public void accept(String s, ClauseInfo.Condition condition) {
-                if (condition == null) {
-                    return;
-                }
-                switch (s) {
-                    case QUERY_COLUMNS:
-                        queryParams.columns = condition.values;
-                        break;
-                    case QUERY_GROUPBY:
-                        queryParams.groupBy = condition.value;
-                        break;
-                    case QUERY_HAVING:
-                        queryParams.having = condition.value;
-                        break;
-                    case QUERY_ORDERBY:
-                        queryParams.orderBy = condition.value;
-                        break;
-                    default:
-                        if (!TextUtils.isEmpty(s) && !TextUtils.isEmpty(condition.key)) {
-                            queryParams.selection.append(condition.key).append("=?");
-                            tempArgs.add(condition.value);
-                        }
-                        break;
-                }
+
+        Set<Map.Entry<String, ClauseInfo.Condition>> entries = conditions.entrySet();
+        for (Map.Entry<String, ClauseInfo.Condition> entry : entries) {
+            String s = entry.getKey();
+            ClauseInfo.Condition condition = entry.getValue();
+            if (condition == null) {
+                continue;
             }
-        });
+            switch (s) {
+                case QUERY_COLUMNS:
+                    queryParams.columns = condition.values;
+                    break;
+                case QUERY_GROUPBY:
+                    queryParams.groupBy = condition.value;
+                    break;
+                case QUERY_HAVING:
+                    queryParams.having = condition.value;
+                    break;
+                case QUERY_ORDERBY:
+                    queryParams.orderBy = condition.value;
+                    break;
+                default:
+                    if (!TextUtils.isEmpty(s) && !TextUtils.isEmpty(condition.key)) {
+                        queryParams.selection.append(condition.key).append("=?");
+                        tempArgs.add(condition.value);
+                    }
+                    break;
+            }
+        }
         queryParams.selectionArgs = new String[tempArgs.size()];
         tempArgs.toArray(queryParams.selectionArgs);
 
@@ -227,15 +233,16 @@ public class DBDataOperation implements DataOperation {
         final StringBuffer where = new StringBuffer();
 
         final List<String> tempArgs = new ArrayList<>();
-        conditions.forEach(new BiConsumer<String, ClauseInfo.Condition>() {
-            @Override
-            public void accept(String s, ClauseInfo.Condition condition) {
-                if (!TextUtils.isEmpty(s) && !TextUtils.isEmpty(condition.key)) {
-                    where.append(condition.key).append("=?");
-                    tempArgs.add(condition.value);
-                }
+
+        Set<Map.Entry<String, ClauseInfo.Condition>> entries = conditions.entrySet();
+        for (Map.Entry<String, ClauseInfo.Condition> entry : entries) {
+            String s = entry.getKey();
+            ClauseInfo.Condition condition = entry.getValue();
+            if (!TextUtils.isEmpty(s) && !TextUtils.isEmpty(condition.key)) {
+                where.append(condition.key).append("=?");
+                tempArgs.add(condition.value);
             }
-        });
+        }
         String[] whereArgs = new String[tempArgs.size()];
         tempArgs.toArray(whereArgs);
         operate.delete(where.length() > 0 ? where.toString() : null,
