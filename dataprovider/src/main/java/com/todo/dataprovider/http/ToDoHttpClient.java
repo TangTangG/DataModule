@@ -42,7 +42,6 @@ public class ToDoHttpClient {
     private static ToDoHttpClient instance = null;
 
     private final Map<String, List<Cookie>> cookieHolder = new HashMap<>(16);
-    private static List<HttpFilter> filters = new ArrayList<>(8);
 
     private ToDoHttpClient() {
         //cookie enabled

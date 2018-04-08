@@ -27,7 +27,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:onClick="request"
-        android:text="请求"/>
+        android:text="normal 请求"/>
 
     <Button
         app:layout_constraintLeft_toLeftOf="parent"
@@ -37,17 +37,37 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:onClick="postRequest"
-        android:text="post请求"/>
+        android:text="post with body 请求"/>
 
     <Button
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/postRequest"
+        android:id="@+id/post1Request"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:onClick="post1Request"
+        android:text="normal post请求"/>
+
+    <Button
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/post1Request"
+        android:id="@+id/postUserRequest"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:onClick="postUserRequest"
+        android:text="post with user 请求"/>
+
+    <Button
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postUserRequest"
         android:id="@+id/getRequest"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:onClick="getRequest"
-        android:text="get请求"/>
+        android:text="param get请求"/>
 
     <TextView
         app:layout_constraintTop_toBottomOf="@id/getRequest"

@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Record common info of the http.
+ *
  * @author TCG
  * @date 2018/4/3
  */
@@ -20,7 +21,7 @@ public class HttpCommon {
 
     private static List<HttpFilter> filters = new ArrayList<>(8);
 
-    public static void initial(String host,int port,List<Class<?>> classes){
+    public static void initial(String host, int port, List<Class<?>> classes) {
         HttpCommon.host = host;
         HttpCommon.port = port;
         initialFilters(classes);
@@ -32,7 +33,7 @@ public class HttpCommon {
         classes.add(UrlCompleter.class);
 
         for (Class<?> cls : classes) {
-            if (HttpFilter.class.isAssignableFrom(cls)){
+            if (HttpFilter.class.isAssignableFrom(cls)) {
                 try {
                     HttpFilter instance = (HttpFilter) cls.newInstance();
                     filters.add(instance);

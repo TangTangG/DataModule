@@ -93,110 +93,10 @@ public class DataService {
 
     }
 
-    /**
-     * This class is for DB operate type.
-     */
-    class DBClause<T extends DBClause> extends Clause {
-
-        public DBClause(String target, Action t) {
-            super(OperateType.DB, target, t);
-        }
-
-        @Override
-        public T where(String key) {
-            super.where(key);
-            return (T) this;
-        }
-
-        @Override
-        public T is(Object val) {
-            super.is(val);
-            return (T) this;
-        }
-
-        @Override
-        public T is(String... val) {
-            super.is(val);
-            return (T) this;
-        }
-
-        public T manager(DBManager dbManager) {
-            where(DBDataOperation.CAST2DB).is(dbManager);
-            return (T) this;
-        }
-
-        public T tableName(String table) {
-            where(DBDataOperation.TABLE_NAME).is(table);
-            return (T) this;
-        }
-
-        public T dbName(String db) {
-            where(DBDataOperation.DB_NAME).is(db);
-            return (T) this;
-        }
-    }
-
-    public class DBUpdateClause extends DBClause<DBUpdateClause> {
-
-        public DBUpdateClause(String target) {
-            super(target, Action.UPDATE);
-        }
-
-        public DBUpdateClause set(String key) {
-            clauseInfo.addCondition(DBDataOperation.UPDATE_SET + key);
-            return this;
-        }
-
-        public DBUpdateClause updateWhere(String key) {
-            clauseInfo.addCondition(DBDataOperation.UPDATE_WHERE + key);
-            return this;
-        }
-    }
-
-    public class DBQueryClause extends DBClause<DBQueryClause> {
-
-        public DBQueryClause(String target) {
-            super(target, Action.QUERY);
-        }
-
-        public DBQueryClause columns(String... columns) {
-            where(DBDataOperation.QUERY_COLUMNS).is(columns);
-            return this;
-        }
-
-        public DBQueryClause groupBy(String by) {
-            where(DBDataOperation.QUERY_GROUPBY).is(by);
-            return this;
-        }
-
-        public DBQueryClause having(String having) {
-            where(DBDataOperation.QUERY_HAVING).is(having);
-            return this;
-        }
-
-        public DBQueryClause orderBy(String by) {
-            where(DBDataOperation.QUERY_ORDERBY).is(by);
-            return this;
-        }
-    }
-
-    public class DBInsertClause extends DBClause<DBInsertClause> {
-
-        public DBInsertClause(String target) {
-            super(target, Action.INSERT);
-        }
-
-    }
-
-    public class DBDeleteClause extends DBClause<DBDeleteClause> {
-
-        public DBDeleteClause(String target) {
-            super(target, Action.DELETE);
-        }
-    }
-
-    public Clause db(Action action) {
-        return act(action, OperateType.DB);
+    public Clause db(Action action,DBManager manager) {
+        Clause clause = act(action, OperateType.DB);
+        clause.where(DBDataOperation.CAST2DB).is(manager);
+        return clause;
     }
 
     public Clause http(Action action) {
@@ -222,9 +122,6 @@ public class DataService {
     }
 
     public Clause act(Action action, OperateType type, String target) {
-        if (OperateType.DB.equals(type)) {
-            return getDBClause(action, target);
-        }
         switch (action) {
             case DELETE:
                 return new Clause(type, target, Action.DELETE);
@@ -240,21 +137,6 @@ public class DataService {
                 return new Clause(type, target, Action.HTTP_POST);
             default:
                 return new Clause(type, target, Action.QUERY);
-        }
-    }
-
-    private Clause getDBClause(Action action, String target) {
-        switch (action) {
-            case DELETE:
-                return new DBDeleteClause(target);
-            case QUERY:
-                return new DBQueryClause(target);
-            case UPDATE:
-                return new DBUpdateClause(target);
-            case INSERT:
-                return new DBInsertClause(target);
-            default:
-                return new DBQueryClause(target);
         }
     }
 
@@ -293,7 +175,6 @@ public class DataService {
         DataContext ctx = getCtx();
         ctx.bind(dataOperation);
         dataOperation.op(ctx, callback);
-//        provider
     }
 
     public DataContext getCtx() {
