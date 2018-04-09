@@ -3,7 +3,8 @@ package com.todo.dataprovider.provider;
 
 import com.todo.dataprovider.Action;
 import com.todo.dataprovider.DataCallback;
-import com.todo.dataprovider.DataService;
+import com.todo.dataprovider.service.Clause;
+import com.todo.dataprovider.service.DataService;
 import com.todo.dataprovider.operate.DataOperation;
 
 /**
@@ -38,7 +39,7 @@ public class BaseDataProvider {
         return info;
     }
 
-    public DataOperation dispatchAction(DataService.Clause clause, DataCallback callback) {
+    public DataOperation dispatchAction(Clause clause, DataCallback callback) {
         Action action = clause.getAction();
         switch (action) {
             case INSERT:
@@ -54,19 +55,19 @@ public class BaseDataProvider {
         }
     }
 
-    protected DataOperation deleteAction(DataService.Clause clause, DataCallback callback) {
+    protected DataOperation deleteAction(Clause clause, DataCallback callback) {
         return null;
     }
 
-    protected DataOperation queryAction(DataService.Clause clause, DataCallback callback) {
+    protected DataOperation queryAction(Clause clause, DataCallback callback) {
         return null;
     }
 
-    protected DataOperation updateAction(DataService.Clause clause, DataCallback callback) {
+    protected DataOperation updateAction(Clause clause, DataCallback callback) {
         return null;
     }
 
-    protected DataOperation insertAction(DataService.Clause clause, DataCallback callback) {
+    protected DataOperation insertAction(Clause clause, DataCallback callback) {
         return null;
     }
 }

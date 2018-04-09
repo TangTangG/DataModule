@@ -3,6 +3,8 @@ package com.todo.dataprovider;
 import android.database.Cursor;
 
 import com.todo.dataprovider.cast.Cast;
+import com.todo.dataprovider.service.Clause;
+import com.todo.dataprovider.service.DataService;
 
 import java.io.InputStream;
 
@@ -14,11 +16,11 @@ import java.io.InputStream;
 
 public class DataCallback {
 
-    public void onResult(int state, DataService.Clause clause, Object data){
+    public void onResult(int state, Clause clause, Object data){
 
     }
 
-    public void onError(int state, DataService.Clause clause){
+    public void onError(int state, Clause clause){
 
     }
 

@@ -3,9 +3,9 @@ package com.todo.dataprovider.http;
 import android.support.annotation.NonNull;
 
 import com.todo.dataprovider.DataCallback;
-import com.todo.dataprovider.DataContext;
-import com.todo.dataprovider.DataService;
-import com.todo.dataprovider.ClauseInfo;
+import com.todo.dataprovider.service.Clause;
+import com.todo.dataprovider.service.DataContext;
+import com.todo.dataprovider.service.ClauseInfo;
 import com.todo.dataprovider.http.filter.HttpFilter;
 
 import java.io.IOException;
@@ -74,7 +74,7 @@ public class ToDoHttpClient {
      * Post async
      */
     void post(String url, final DataContext context, final DataCallback callback,
-              final DataService.Clause clause) {
+              final Clause clause) {
 
         final ClauseInfo info = clause.getClauseInfo();
 
@@ -115,7 +115,7 @@ public class ToDoHttpClient {
      * Get async
      */
     void get(String url, final DataContext context, final DataCallback callback,
-             final DataService.Clause clause) {
+             final Clause clause) {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -136,14 +136,14 @@ public class ToDoHttpClient {
         });
     }
 
-    private void deliverFail(DataContext context, int code, final DataService.Clause clause,
+    private void deliverFail(DataContext context, int code, final Clause clause,
                              final DataCallback callback) {
         clause.setMsg(httpMessageFromCode(code));
         context.deliverError(callback, clause);
     }
 
     private void deliverSuccess( DataContext context, Response response, final DataCallback callback,
-                                final DataService.Clause clause) {
+                                final Clause clause) {
         if (callback == null) {
             return;
         }

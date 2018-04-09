@@ -1,4 +1,4 @@
-package com.todo.dataprovider;
+package com.todo.dataprovider.service;
 
 
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.todo.dataprovider.Action;
-import com.todo.dataprovider.DataService;
+import com.todo.dataprovider.service.DataService;
 import com.todo.dataprovider.annotation.ProviderRegister;
 import com.todo.dataprovider.provider.BaseDataProvider;
 
@@ -31,7 +31,7 @@ public class ProviderManager {
     private static final HashMap<String, BaseDataProvider> PROVIDER_HOLDER = new HashMap<>();
     private static Looper mainLooper;
 
-    static BaseDataProvider getProvider(DataService.Clause clause) {
+    static BaseDataProvider getProvider(Clause clause) {
         return PROVIDER_HOLDER.get(clause.getClauseInfo()._target);
     }
 

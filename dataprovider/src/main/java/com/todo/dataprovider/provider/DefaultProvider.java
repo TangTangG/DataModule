@@ -4,9 +4,10 @@ package com.todo.dataprovider.provider;
 import android.support.annotation.Nullable;
 
 import com.todo.dataprovider.DataCallback;
-import com.todo.dataprovider.DataService;
+import com.todo.dataprovider.service.Clause;
+import com.todo.dataprovider.service.DataService;
 import com.todo.dataprovider.annotation.ProviderRegister;
-import com.todo.dataprovider.ClauseInfo;
+import com.todo.dataprovider.service.ClauseInfo;
 import com.todo.dataprovider.operate.DataOperation;
 import com.todo.dataprovider.operate.CacheOperation;
 import com.todo.dataprovider.operate.DBDataOperation;
@@ -22,12 +23,12 @@ import com.todo.dataprovider.http.HttpOperation;
 public class DefaultProvider extends BaseDataProvider {
 
     @Override
-    public DataOperation dispatchAction(DataService.Clause clause, DataCallback callback) {
+    public DataOperation dispatchAction(Clause clause, DataCallback callback) {
         return switchOperation(clause);
     }
 
     @Nullable
-    private DataOperation switchOperation(DataService.Clause clause) {
+    private DataOperation switchOperation(Clause clause) {
         ClauseInfo clauseInfo = clause.getClauseInfo();
         switch (clauseInfo._type) {
             case HTTP:

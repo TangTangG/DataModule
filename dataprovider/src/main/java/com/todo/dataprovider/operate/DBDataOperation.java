@@ -8,9 +8,10 @@ import android.util.Log;
 
 import com.todo.dataprovider.Action;
 import com.todo.dataprovider.DataCallback;
-import com.todo.dataprovider.DataContext;
-import com.todo.dataprovider.DataService;
-import com.todo.dataprovider.ClauseInfo;
+import com.todo.dataprovider.service.Clause;
+import com.todo.dataprovider.service.DataContext;
+import com.todo.dataprovider.service.DataService;
+import com.todo.dataprovider.service.ClauseInfo;
 import com.todo.presistence.db.DBManager;
 import com.todo.presistence.db.DBOperation;
 import com.todo.presistence.db.Table;
@@ -58,9 +59,9 @@ public class DBDataOperation implements DataOperation {
 
     public static final String DB_NAME = "@dbName";
     public static final String TABLE_NAME = "@tableName";
-    private DataService.Clause clause;
+    private Clause clause;
 
-    public DBDataOperation(DataService.Clause clause) {
+    public DBDataOperation(Clause clause) {
         this.clause = clause;
     }
 

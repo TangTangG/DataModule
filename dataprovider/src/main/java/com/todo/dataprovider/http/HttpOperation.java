@@ -4,9 +4,10 @@ import android.util.Log;
 
 import com.todo.dataprovider.Action;
 import com.todo.dataprovider.DataCallback;
-import com.todo.dataprovider.DataContext;
-import com.todo.dataprovider.DataService;
-import com.todo.dataprovider.ClauseInfo;
+import com.todo.dataprovider.service.Clause;
+import com.todo.dataprovider.service.DataContext;
+import com.todo.dataprovider.service.DataService;
+import com.todo.dataprovider.service.ClauseInfo;
 import com.todo.dataprovider.http.filter.HttpFilter;
 import com.todo.dataprovider.operate.DataOperation;
 
@@ -22,9 +23,9 @@ public class HttpOperation implements DataOperation {
 
     public static final String HEAD_PATH = "@head_path";
 
-    private DataService.Clause clause;
+    private Clause clause;
 
-    public HttpOperation(DataService.Clause clause) {
+    public HttpOperation(Clause clause) {
         this.clause = clause;
     }
 

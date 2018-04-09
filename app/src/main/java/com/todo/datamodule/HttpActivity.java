@@ -8,7 +8,8 @@ import android.widget.TextView;
 
 import com.todo.dataprovider.Action;
 import com.todo.dataprovider.DataCallback;
-import com.todo.dataprovider.DataService;
+import com.todo.dataprovider.service.Clause;
+import com.todo.dataprovider.service.DataService;
 
 public class HttpActivity extends AppCompatActivity {
 
@@ -27,13 +28,13 @@ public class HttpActivity extends AppCompatActivity {
         service.http(HttpApi.USER_TEST,Action.HTTP_GET)
                 .exec(new DataCallback() {
                     @Override
-                    public void onResult(int state, DataService.Clause clause, Object data) {
+                    public void onResult(int state, Clause clause, Object data) {
                         TextView view1 = findViewById(R.id.result);
                         view1.setText(String.valueOf(data));
                     }
 
                     @Override
-                    public void onError(int state, DataService.Clause clause) {
+                    public void onError(int state, Clause clause) {
                         super.onError(state, clause);
                     }
                 });
@@ -51,13 +52,13 @@ public class HttpActivity extends AppCompatActivity {
                 .where("aaa ").is("biubiubiu")
                 .exec(new DataCallback() {
                     @Override
-                    public void onResult(int state, DataService.Clause clause, Object data) {
+                    public void onResult(int state, Clause clause, Object data) {
                         TextView view1 = findViewById(R.id.result);
                         view1.setText(String.valueOf(data));
                     }
 
                     @Override
-                    public void onError(int state, DataService.Clause clause) {
+                    public void onError(int state, Clause clause) {
                         super.onError(state, clause);
                     }
                 });
@@ -67,13 +68,13 @@ public class HttpActivity extends AppCompatActivity {
         service.http(HttpApi.USER_POST1_TEST,Action.HTTP_POST)
                 .exec(new DataCallback() {
                     @Override
-                    public void onResult(int state, DataService.Clause clause, Object data) {
+                    public void onResult(int state, Clause clause, Object data) {
                         TextView view1 = findViewById(R.id.result);
                         view1.setText(String.valueOf(data));
                     }
 
                     @Override
-                    public void onError(int state, DataService.Clause clause) {
+                    public void onError(int state, Clause clause) {
                         super.onError(state, clause);
                     }
                 });
@@ -84,13 +85,13 @@ public class HttpActivity extends AppCompatActivity {
                 .where("path").is("    ---- aaaaaa")
                 .exec(new DataCallback() {
                     @Override
-                    public void onResult(int state, DataService.Clause clause, Object data) {
+                    public void onResult(int state, Clause clause, Object data) {
                         TextView view1 = findViewById(R.id.result);
                         view1.setText(String.valueOf(data));
                     }
 
                     @Override
-                    public void onError(int state, DataService.Clause clause) {
+                    public void onError(int state, Clause clause) {
                         super.onError(state, clause);
                     }
                 });
@@ -102,13 +103,13 @@ public class HttpActivity extends AppCompatActivity {
                 .where("userName").is("postUserRequest")
                 .exec(new DataCallback() {
                     @Override
-                    public void onResult(int state, DataService.Clause clause, Object data) {
+                    public void onResult(int state, Clause clause, Object data) {
                         TextView view1 = findViewById(R.id.result);
                         view1.setText(String.valueOf(data));
                     }
 
                     @Override
-                    public void onError(int state, DataService.Clause clause) {
+                    public void onError(int state, Clause clause) {
                         super.onError(state, clause);
                     }
                 });

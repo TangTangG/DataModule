@@ -2,9 +2,8 @@ package com.todo.datamodule;
 
 import android.app.Application;
 
-import com.todo.dataprovider.ProviderManager;
+import com.todo.dataprovider.service.ProviderManager;
 import com.todo.dataprovider.http.HttpCommon;
-import com.todo.dataprovider.http.filter.UrlCompleter;
 
 import java.util.ArrayList;
 

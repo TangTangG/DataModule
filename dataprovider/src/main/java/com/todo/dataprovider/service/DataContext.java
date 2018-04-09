@@ -1,9 +1,10 @@
-package com.todo.dataprovider;
+package com.todo.dataprovider.service;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.todo.dataprovider.DataCallback;
 import com.todo.dataprovider.operate.DataOperation;
 
 import java.util.WeakHashMap;
@@ -47,7 +48,7 @@ public class DataContext {
     }
 
     public synchronized void deliverResult(final DataCallback callback,
-                                           final DataService.Clause clause, final Object data) {
+                                           final Clause clause, final Object data) {
         if (callback == null || destroyed) {
             Log.i("data-service-ctx",
                     "deliverResult callback is null or has been destroyed. ");
@@ -70,7 +71,7 @@ public class DataContext {
     }
 
     public synchronized void deliverError(final DataCallback callback,
-                                           final DataService.Clause clause) {
+                                           final Clause clause) {
         if (callback == null || destroyed) {
             Log.i("data-service-ctx",
                     "deliverError callback is null or has been destroyed. ");
