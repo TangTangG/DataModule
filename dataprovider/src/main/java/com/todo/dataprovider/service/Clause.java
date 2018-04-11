@@ -38,6 +38,10 @@ public class Clause {
         this.msg = msg;
     }
 
+    public String getMsg() {
+        return msg;
+    }
+
     public ClauseInfo getClauseInfo() {
         return clauseInfo;
     }
