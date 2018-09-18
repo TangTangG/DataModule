@@ -1,1 +1,1 @@
-include ':app', ':dataprovider', ':presistence'
+include ':app', ':dataprovider', ':presistence', ':AutoCollect'
