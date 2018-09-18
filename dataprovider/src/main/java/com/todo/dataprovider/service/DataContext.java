@@ -39,7 +39,7 @@ public class DataContext {
         operations.remove(op);
     }
 
-    synchronized void destory() {
+    synchronized void destroy() {
         destroyed = true;
         if (operations != null) {
             operations.clear();

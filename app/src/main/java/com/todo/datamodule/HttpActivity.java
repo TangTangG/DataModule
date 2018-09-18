@@ -25,19 +25,21 @@ public class HttpActivity extends AppCompatActivity {
     public void request(View view) {
         EditText urlV = findViewById(R.id.url);
         String url = urlV.getText().toString();
-        service.http(HttpApi.USER_TEST,Action.HTTP_GET)
-                .exec(new DataCallback() {
-                    @Override
-                    public void onResult(int state, Clause clause, Object data) {
-                        TextView view1 = findViewById(R.id.result);
-                        view1.setText(String.valueOf(data));
-                    }
+        @SuppressWarnings("")
+        DataCallback callback = new DataCallback() {
+            @Override
+            public void onResult(int state, Clause clause, Object data) {
+                TextView view1 = findViewById(R.id.result);
+                view1.setText(String.valueOf(data));
+            }
 
-                    @Override
-                    public void onError(int state, Clause clause) {
-                        super.onError(state, clause);
-                    }
-                });
+            @Override
+            public void onError(int state, Clause clause) {
+                super.onError(state, clause);
+            }
+        };
+        service.http(HttpApi.USER_TEST,Action.HTTP_GET)
+                .exec(callback);
     }
 
     @Override

@@ -90,8 +90,7 @@ public class DataService {
 
         boolean actionState = false;
         Action targetAct = clause.getAction();
-        BaseDataProvider.Info info = provider.getInfo();
-        Action[] actions = info.actions;
+        Action[] actions = provider.actions;
         for (Action act : actions) {
             if (act == targetAct) {
                 actionState = true;
@@ -127,7 +126,7 @@ public class DataService {
 
     public void cancel() {
         if (ctx != null) {
-            ctx.destory();
+            ctx.destroy();
         }
     }
 }

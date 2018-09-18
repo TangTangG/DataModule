@@ -4,7 +4,6 @@ package com.todo.dataprovider.provider;
 import com.todo.dataprovider.Action;
 import com.todo.dataprovider.DataCallback;
 import com.todo.dataprovider.service.Clause;
-import com.todo.dataprovider.service.DataService;
 import com.todo.dataprovider.operate.DataOperation;
 
 /**
@@ -13,30 +12,20 @@ import com.todo.dataprovider.operate.DataOperation;
  * @date 2017/8/9
  */
 
-public class BaseDataProvider {
+public class BaseDataProvider implements ProviderInterface {
 
-    protected Info info = null;
+    public Action[] actions;
 
     public BaseDataProvider() {
 
     }
 
-    public static class Info {
-        public String target;
-        public Action[] actions;
-
-        public Info(String target,  Action[] actions) {
-            this.target = target;
-            this.actions = actions;
+    @Override
+    public void inject(Object[] args) {
+        if (args == null || args.length <= 0){
+            return;
         }
-    }
-
-    private void buildInfo(String target, Action... action) {
-        info = new Info(target, action);
-    }
-
-    public Info getInfo() {
-        return info;
+        actions = (Action[]) args;
     }
 
     public DataOperation dispatchAction(Clause clause, DataCallback callback) {

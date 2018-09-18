@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by TCG on 2017/8/3.
+ *
+ * @author TCG
+ * @date 2017/8/3
  */
 
 public class DBOperation {
@@ -26,6 +28,9 @@ public class DBOperation {
         return new DBOperation(database, tableName);
     }
 
+    /**
+     * default has an integer auto increment key.
+     */
     public void newTable(Table table) {
         StringBuilder builder = new StringBuilder("create table if not exists ");
         builder.append(table.TABLE_NAME).append("( ").append(table.id)
@@ -101,8 +106,7 @@ public class DBOperation {
     public Cursor select(String[] columns, String selection,
                          String[] selectionArgs, String groupBy, String having,
                          String orderBy) {
-        Cursor cursor = database.query(tableName, columns, selection,
+        return database.query(tableName, columns, selection,
                 selectionArgs, groupBy, having, orderBy);
-        return cursor;
     }
 }

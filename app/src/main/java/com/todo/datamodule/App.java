@@ -16,7 +16,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ProviderManager.autoRegister(this, "");
+        ProviderManager.init(this);
         HttpCommon.initial("172.31.14.249", 8080
                 , new ArrayList<Class<?>>(8));
     }
